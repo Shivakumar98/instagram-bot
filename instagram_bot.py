@@ -94,6 +94,24 @@ class InstaBot:
 
         for btn in follow_buttons:
             btn.click()
+            
+    def follow_suggested(self):
+        # following all the suggested people
+       
+        Suggetion_page = 'https://www.instagram.com/explore/people/suggested/'
+        Home_page=self.driver.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[1]/a/div/span')
+        
+        max=10
+        t=0
+        
+        nav_user(Suggetion_page)
+        follow_all = self.find_buttons('Follow')
+        for btn in follow_all:
+            time.sleep(5)
+            btn.click()
+            t+=1
+            if t == max:
+                Home_page.click()          
 
     
     @insta_method
@@ -249,5 +267,8 @@ if __name__ == '__main__':
 
     bot = InstaBot()
     bot.login()
+    
+    # following the 10 people on login everytime
+    bot.follow_suggested()
 
     bot.like_latest_posts('johngfisher', 2, like=True)
